@@ -581,12 +581,62 @@ var _recapMjs = require("./scripts/recap.mjs");
 },{"./styles/style.scss":"9v7yy","./scripts/navigation.mjs":"9hfJF","./scripts/recap.mjs":"7fowK"}],"9v7yy":[function() {},{}],"9hfJF":[function(require,module,exports) {
 
 },{}],"7fowK":[function(require,module,exports) {
-let recap;
+var _recapJson = require("../data/recap.json");
 document.addEventListener("DOMContentLoaded", ()=>{
-    fetch("/data/recap.json").then((res)=>res.json()).then((json)=>{
-        recap = json;
-    });
+    console.log(_recapJson);
+    refreshRecap();
 });
+function refreshRecap() {
+    _recapJson.forEach((recapEntry)=>{
+        document.querySelector("#recap").appendChild(Array.isArray(recapEntry) ? createMultiRecapElements(recapEntry) : createRecapElement(recapEntry));
+    });
+}
+function createRecapElement(recapEntry) {
+    if (!recapEntry.title && !recapEntry.place) return null;
+    const recapEl = document.createElement("div");
+    const recapTimeline = document.createElement("div");
+    const recapTimelineDot = document.createElement("div");
+    const recapTimelineLine = document.createElement("div");
+    const recapContent = document.createElement("div");
+    const recapText = document.createElement("div");
+    const recapTime = document.createElement("p");
+    const recapTitle = document.createElement("h3");
+    const recapPlace = document.createElement("p");
+    const recapMedia = document.createElement("div");
+    recapEl.className = "entry";
+    recapTimeline.className = "timeline";
+    recapTimelineDot.className = "dot";
+    recapTimelineLine.className = "line";
+    recapContent.className = "content";
+    recapText.className = "text";
+    recapTime.className = "time";
+    recapTitle.className = "title";
+    recapPlace.className = "place";
+    if (recapEntry.time) {
+        recapTime.innerText = recapEntry.time;
+        recapText.appendChild(recapTime);
+    }
+    recapTitle.innerText = recapEntry.title;
+    recapPlace.innerText = recapEntry.place;
+    recapTimeline.appendChild(recapTimelineDot);
+    recapTimeline.appendChild(recapTimelineLine);
+    recapText.appendChild(recapTitle);
+    recapText.appendChild(recapPlace);
+    recapEl.appendChild(recapTimeline);
+    recapContent.appendChild(recapText);
+    recapContent.appendChild(recapMedia);
+    recapEl.appendChild(recapContent);
+    return recapEl;
+}
+function createMultiRecapElements(recapMulti) {
+    const recapMultiEl = document.createElement("div");
+    recapMultiEl.className = "multi";
+    recapMulti.map((_entry)=>createRecapElement(_entry)).forEach((el)=>recapMultiEl.appendChild(el));
+    return recapMultiEl;
+}
+
+},{"../data/recap.json":"60ydP"}],"60ydP":[function(require,module,exports) {
+module.exports = JSON.parse('[{"title":"Arriv\xe9e au parc","place":"Parking de Nigloland","time":1692259200000},{"title":"Entr\xe9e dans le parc","place":"Nigloland","time":1692259560000},{"title":"1\xe8re attraction de la journ\xe9e","place":"Galion Pirate","time":1692259560000,"medias":["https://cdn.discordapp.com/attachments/1141287491652046988/1141295009996472410/VID20230816101922.mp4"]},{"title":"Petit tour en Minecart","place":"Train de la mine","time":1234},{"title":"Il est l\'heure de faire trempette","place":"Rivi\xe8re Canadienne","time":1234},{"title":"Grrrrrr !","place":"Grizzli","time":1234},{"title":"Osti de marde que \xe7a tourne lo","place":"Caravelles de Jacques Cartier","time":1234},{"title":"Bouuhh ! Ce lieu est en T !","place":"Manoir hant\xe9","time":1234},{"title":"Let\'s rock, everybody, let\'s rock!","place":"Juke box","time":1234},{"title":"Vers l\'infini et l\'au del\xe0 !","place":"Spatiale Experience","time":1234},{"title":"La double mont\xe9e alpine","place":"Alpina Blitz","time":1234},{"title":"Allons miner un petit coup","place":"Descente en Schlitt\'","time":1234},{"title":"T\'as les Kramptus ?","place":"Krampus Exp\xe9dition","time":1234},{"title":"Niglo, niglo, niglo Niglo Show !","place":"Niglo Show","time":1234},{"title":"On tourne, on mange, il pleut","place":"Eden Palais / Carrousel","time":1234},{"title":"Le caca culotte pour Alan et Hugo","place":"Donjon de l\'Extr\xeame","time":1234},[{"title":"\xc7a d\xe9colle !","place":"Air-Meeting","time":1234},{"title":"Vive les noix !","place":"P\'tit Poucet","time":1234}],{"title":"Bisous je m\'envole","place":"Montgolfi\xe8res","time":1234},{"title":"D\xe9sol\xe9 Rikko, mais t\'es guez","place":"Noisette Express","time":1234},{"title":"Hein ? Apagniglan ?","place":"Krampus Exp\xe9dition","time":1234},[{"title":"D\xe9cid\xe9mment, c\'est tr\xe8s alpin ici","place":"Alpina Blitz","time":1234},{"title":"Oh my god the Rock\'N\'Roll!","place":"Juke box","time":1234}]]');
 
 },{}]},["3OqW1","aR1JP"], "aR1JP", "parcelRequire2b84")
 

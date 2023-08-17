@@ -10,6 +10,81 @@ header menu, header menu li {
   display: flex;
 }
 
+#recap {
+  flex-direction: column;
+  gap: 1rem;
+  display: flex;
+}
+
+#recap .multi {
+  gap: 2rem;
+  width: 80%;
+  display: flex;
+}
+
+#recap .multi .entry {
+  width: 50%;
+  max-width: 50%;
+}
+
+#recap .entry {
+  gap: 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+}
+
+#recap .entry .timeline {
+  flex-direction: column;
+  align-items: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 100%;
+  min-height: 4rem;
+  display: flex;
+}
+
+#recap .entry .timeline .line {
+  background: #323271;
+  width: .15rem;
+  height: 48px;
+}
+
+#recap .entry .timeline .dot {
+  background: #4a4aa6;
+  border: .15rem solid #fff;
+  border-radius: 2rem;
+  width: 1rem;
+  height: 1rem;
+  box-shadow: 0 0 0 .175rem #3a3a83;
+}
+
+#recap .entry .content {
+  flex-direction: column;
+  display: flex;
+}
+
+#recap .entry .content .text {
+  flex-direction: column;
+  margin: auto 0;
+  display: flex;
+}
+
+#recap .entry .content .text h3, #recap .entry .content .text p {
+  margin: 0;
+}
+
+#recap .entry .content .text .time {
+  text-transform: uppercase;
+  font-size: .8rem;
+  font-weight: 300;
+}
+
+#recap .entry .content .text .title {
+  margin-bottom: .5rem;
+  font-size: 1.3rem;
+}
+
 body, html {
   flex-direction: column;
   width: 100%;
