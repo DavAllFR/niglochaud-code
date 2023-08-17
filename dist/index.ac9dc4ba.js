@@ -576,8 +576,17 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"aR1JP":[function(require,module,exports) {
 var _styleScss = require("./styles/style.scss");
 var _navigationMjs = require("./scripts/navigation.mjs");
+var _recapMjs = require("./scripts/recap.mjs");
 
-},{"./styles/style.scss":"9v7yy","./scripts/navigation.mjs":"9hfJF"}],"9v7yy":[function() {},{}],"9hfJF":[function(require,module,exports) {
+},{"./styles/style.scss":"9v7yy","./scripts/navigation.mjs":"9hfJF","./scripts/recap.mjs":"7fowK"}],"9v7yy":[function() {},{}],"9hfJF":[function(require,module,exports) {
+
+},{}],"7fowK":[function(require,module,exports) {
+let recap;
+document.addEventListener("DOMContentLoaded", ()=>{
+    fetch("/data/recap.json").then((res)=>res.json()).then((json)=>{
+        recap = json;
+    });
+});
 
 },{}]},["3OqW1","aR1JP"], "aR1JP", "parcelRequire2b84")
 
