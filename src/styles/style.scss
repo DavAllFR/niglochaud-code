@@ -1,4 +1,6 @@
 @import 'header';
+@import 'recap.app';
+@import 'medias.app';
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,300;10..48,400;10..48,500&family=Inter:wght@300;400;500&display=swap');
 
 body, html {
@@ -19,4 +21,9 @@ body, html {
 
 h1, h2, h3, h4, h5, b {
   font-family: "Bricolage Grotesque", sans-serif;
+}
+
+main{
+  width: 95%;
+  margin: 0 auto;
 }

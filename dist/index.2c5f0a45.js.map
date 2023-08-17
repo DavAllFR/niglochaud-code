@@ -1,0 +1,1 @@
+{"mappings":"","sources":["src/index.mjs","src/scripts/navigation.mjs"],"sourcesContent":["import \"./styles/style.scss\";\nimport \"./scripts/navigation.mjs\";",""],"names":[],"version":3,"file":"index.2c5f0a45.js.map"}
