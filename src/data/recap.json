@@ -30,7 +30,13 @@
     {
         "title": "Grrrrrr !",
         "place": "Grizzli",
-        "time": 1234
+        "time": 1234,
+        "medias": [
+            "https://cdn.discordapp.com/attachments/1141287491652046988/1141328585471299604/IMG20230816105947.jpg",
+            "https://cdn.discordapp.com/attachments/1141287491652046988/1141328585722974339/IMG20230816105953.jpg",
+            "https://cdn.discordapp.com/attachments/1141287491652046988/1141328586008182805/IMG20230816110126.jpg",
+            "https://cdn.discordapp.com/attachments/1141287491652046988/1141329174754242640/VID20230816110140.mp4"
+        ]
     },
     {
         "title": "Osti de marde que ça tourne lo",

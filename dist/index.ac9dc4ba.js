@@ -575,13 +575,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"aR1JP":[function(require,module,exports) {
 var _styleScss = require("./styles/style.scss");
-var _navigationMjs = require("./scripts/navigation.mjs");
 var _recapMjs = require("./scripts/recap.mjs");
 
-},{"./styles/style.scss":"9v7yy","./scripts/navigation.mjs":"9hfJF","./scripts/recap.mjs":"7fowK"}],"9v7yy":[function() {},{}],"9hfJF":[function(require,module,exports) {
-
-},{}],"7fowK":[function(require,module,exports) {
+},{"./styles/style.scss":"9v7yy","./scripts/recap.mjs":"7fowK"}],"9v7yy":[function() {},{}],"7fowK":[function(require,module,exports) {
 var _recapJson = require("../data/recap.json");
+var _popupMjs = require("./popup.mjs");
 document.addEventListener("DOMContentLoaded", ()=>{
     console.log(_recapJson);
     refreshRecap();
@@ -612,12 +610,25 @@ function createRecapElement(recapEntry) {
     recapTime.className = "time";
     recapTitle.className = "title";
     recapPlace.className = "place";
+    recapMedia.className = "media";
     if (recapEntry.time) {
-        recapTime.innerText = recapEntry.time;
+        recapTime.innerText = (recapEntry.time, new Date(recapEntry.time).toLocaleTimeString("fr-FR", {
+            minute: "numeric",
+            hour: "numeric"
+        }));
         recapText.appendChild(recapTime);
     }
     recapTitle.innerText = recapEntry.title;
     recapPlace.innerText = recapEntry.place;
+    if (recapEntry.medias) {
+        const mediaTitle = document.createElement("h4");
+        const mediaContainer = document.createElement("div");
+        mediaContainer.className = "media-container";
+        mediaTitle.innerText = "Photos et vid\xe9os";
+        recapEntry.medias.map((media)=>createMediaThumb(media)).forEach((el)=>mediaContainer.appendChild(el));
+        recapMedia.appendChild(mediaTitle);
+        recapMedia.appendChild(mediaContainer);
+    }
     recapTimeline.appendChild(recapTimelineDot);
     recapTimeline.appendChild(recapTimelineLine);
     recapText.appendChild(recapTitle);
@@ -634,9 +645,95 @@ function createMultiRecapElements(recapMulti) {
     recapMulti.map((_entry)=>createRecapElement(_entry)).forEach((el)=>recapMultiEl.appendChild(el));
     return recapMultiEl;
 }
+function createMediaThumb(media) {
+    const mediaEl = document.createElement("div");
+    const mediaThumb = document.createElement("video");
+    const mediaCTA = document.createElement("div");
+    mediaEl.className = "media-element";
+    mediaThumb.className = "media-thumb";
+    mediaCTA.className = "media-cta";
+    if ([
+        "webm",
+        "mp4"
+    ].includes(media.split(".").pop())) {
+        mediaEl.classList.add("video");
+        mediaThumb.src = media;
+        mediaEl.appendChild(mediaThumb);
+        mediaEl.appendChild(mediaCTA);
+    } else mediaEl.style.backgroundImage += `url(${media})`;
+    mediaEl.addEventListener("click", ()=>{
+        (0, _popupMjs.openMediaPopUp)(media);
+    });
+    return mediaEl;
+}
 
-},{"../data/recap.json":"60ydP"}],"60ydP":[function(require,module,exports) {
-module.exports = JSON.parse('[{"title":"Arriv\xe9e au parc","place":"Parking de Nigloland","time":1692259200000},{"title":"Entr\xe9e dans le parc","place":"Nigloland","time":1692259560000},{"title":"1\xe8re attraction de la journ\xe9e","place":"Galion Pirate","time":1692259560000,"medias":["https://cdn.discordapp.com/attachments/1141287491652046988/1141295009996472410/VID20230816101922.mp4"]},{"title":"Petit tour en Minecart","place":"Train de la mine","time":1234},{"title":"Il est l\'heure de faire trempette","place":"Rivi\xe8re Canadienne","time":1234},{"title":"Grrrrrr !","place":"Grizzli","time":1234},{"title":"Osti de marde que \xe7a tourne lo","place":"Caravelles de Jacques Cartier","time":1234},{"title":"Bouuhh ! Ce lieu est en T !","place":"Manoir hant\xe9","time":1234},{"title":"Let\'s rock, everybody, let\'s rock!","place":"Juke box","time":1234},{"title":"Vers l\'infini et l\'au del\xe0 !","place":"Spatiale Experience","time":1234},{"title":"La double mont\xe9e alpine","place":"Alpina Blitz","time":1234},{"title":"Allons miner un petit coup","place":"Descente en Schlitt\'","time":1234},{"title":"T\'as les Kramptus ?","place":"Krampus Exp\xe9dition","time":1234},{"title":"Niglo, niglo, niglo Niglo Show !","place":"Niglo Show","time":1234},{"title":"On tourne, on mange, il pleut","place":"Eden Palais / Carrousel","time":1234},{"title":"Le caca culotte pour Alan et Hugo","place":"Donjon de l\'Extr\xeame","time":1234},[{"title":"\xc7a d\xe9colle !","place":"Air-Meeting","time":1234},{"title":"Vive les noix !","place":"P\'tit Poucet","time":1234}],{"title":"Bisous je m\'envole","place":"Montgolfi\xe8res","time":1234},{"title":"D\xe9sol\xe9 Rikko, mais t\'es guez","place":"Noisette Express","time":1234},{"title":"Hein ? Apagniglan ?","place":"Krampus Exp\xe9dition","time":1234},[{"title":"D\xe9cid\xe9mment, c\'est tr\xe8s alpin ici","place":"Alpina Blitz","time":1234},{"title":"Oh my god the Rock\'N\'Roll!","place":"Juke box","time":1234}]]');
+},{"../data/recap.json":"60ydP","./popup.mjs":"fAoWj"}],"60ydP":[function(require,module,exports) {
+module.exports = JSON.parse('[{"title":"Arriv\xe9e au parc","place":"Parking de Nigloland","time":1692259200000},{"title":"Entr\xe9e dans le parc","place":"Nigloland","time":1692259560000},{"title":"1\xe8re attraction de la journ\xe9e","place":"Galion Pirate","time":1692259560000,"medias":["https://cdn.discordapp.com/attachments/1141287491652046988/1141295009996472410/VID20230816101922.mp4"]},{"title":"Petit tour en Minecart","place":"Train de la mine","time":1234},{"title":"Il est l\'heure de faire trempette","place":"Rivi\xe8re Canadienne","time":1234},{"title":"Grrrrrr !","place":"Grizzli","time":1234,"medias":["https://cdn.discordapp.com/attachments/1141287491652046988/1141328585471299604/IMG20230816105947.jpg","https://cdn.discordapp.com/attachments/1141287491652046988/1141328585722974339/IMG20230816105953.jpg","https://cdn.discordapp.com/attachments/1141287491652046988/1141328586008182805/IMG20230816110126.jpg","https://cdn.discordapp.com/attachments/1141287491652046988/1141329174754242640/VID20230816110140.mp4"]},{"title":"Osti de marde que \xe7a tourne lo","place":"Caravelles de Jacques Cartier","time":1234},{"title":"Bouuhh ! Ce lieu est en T !","place":"Manoir hant\xe9","time":1234},{"title":"Let\'s rock, everybody, let\'s rock!","place":"Juke box","time":1234},{"title":"Vers l\'infini et l\'au del\xe0 !","place":"Spatiale Experience","time":1234},{"title":"La double mont\xe9e alpine","place":"Alpina Blitz","time":1234},{"title":"Allons miner un petit coup","place":"Descente en Schlitt\'","time":1234},{"title":"T\'as les Kramptus ?","place":"Krampus Exp\xe9dition","time":1234},{"title":"Niglo, niglo, niglo Niglo Show !","place":"Niglo Show","time":1234},{"title":"On tourne, on mange, il pleut","place":"Eden Palais / Carrousel","time":1234},{"title":"Le caca culotte pour Alan et Hugo","place":"Donjon de l\'Extr\xeame","time":1234},[{"title":"\xc7a d\xe9colle !","place":"Air-Meeting","time":1234},{"title":"Vive les noix !","place":"P\'tit Poucet","time":1234}],{"title":"Bisous je m\'envole","place":"Montgolfi\xe8res","time":1234},{"title":"D\xe9sol\xe9 Rikko, mais t\'es guez","place":"Noisette Express","time":1234},{"title":"Hein ? Apagniglan ?","place":"Krampus Exp\xe9dition","time":1234},[{"title":"D\xe9cid\xe9mment, c\'est tr\xe8s alpin ici","place":"Alpina Blitz","time":1234},{"title":"Oh my god the Rock\'N\'Roll!","place":"Juke box","time":1234}]]');
+
+},{}],"fAoWj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "openMediaPopUp", ()=>openMediaPopUp);
+function openMediaPopUp(mediaUrl) {
+    const popUp = createPopUp();
+    const isVideo = [
+        "webm",
+        "mp4"
+    ].includes(mediaUrl.split(".").pop());
+    const mediaEl = document.createElement(isVideo ? "video" : "img");
+    mediaEl.src = mediaUrl;
+    if (isVideo) {
+        mediaEl.controls = true;
+        mediaEl.addEventListener("click", (e)=>{
+            e.stopPropagation();
+        });
+    }
+    popUp.element.appendChild(mediaEl);
+    document.body.appendChild(popUp.element);
+    return popUp;
+}
+function createPopUp() {
+    const popUpEl = document.createElement("div");
+    popUpEl.className = "popUp";
+    const close = ()=>{
+        popUpEl.remove();
+    };
+    popUpEl.addEventListener("click", ()=>close());
+    return {
+        element: popUpEl,
+        close
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["3OqW1","aR1JP"], "aR1JP", "parcelRequire2b84")
 

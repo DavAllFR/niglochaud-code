@@ -19,12 +19,14 @@
     .entry {
         display: flex;
         gap: 1rem;
-        width: fit-content;
+        width: 100%;
+        height: 100%;
 
         .timeline {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: stretch;
 
             height: 100%;
             width: fit-content;
@@ -51,6 +53,7 @@
         .content {
             display: flex;
             flex-direction: column;
+            width: 100%;
 
             .text {
                 display: flex;
@@ -70,9 +73,73 @@
                 }
 
                 .title {
-                    margin-bottom: .5rem;
+                    margin-bottom: .1rem;
                     font-size: 1.3rem;
                 }
+            }
+
+            .media {
+                display: flex;
+                flex-direction: column;
+                gap: .35rem;
+                margin-top: .75rem;
+
+                h4 {
+                    margin: 0;
+                }
+
+                .media-container {
+                    display: grid;
+                    grid-template-columns: minmax(8rem, max-content) repeat(auto-fill, 8rem);
+                    gap: .5rem;
+                    row-gap: .25rem;
+
+                    .media-element {
+                        width: 8rem;
+                        height: 8rem;
+                        border-radius: 1rem;
+                        background: black;
+                        box-shadow: none;
+
+                        transition: 250ms ease-in-out;
+
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: center;
+
+                        overflow: hidden;
+
+                        &:hover {
+                            cursor: pointer;
+                            box-shadow: 0 .25rem .5rem 0 rgba(0, 0, 0, .25);
+                            transform: translateY(-2px);
+                        }
+
+                        &.video {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0;
+
+                            .media-cta {
+                                position: relative;
+                                z-index: 10;
+                                width: 8rem;
+                                height: 8rem;
+                                background-image: url(../img/playThumb.png);
+                                background-size: cover;
+                                margin-top: -8rem;
+                            }
+
+                            .media-thumb {
+                                z-index: 9;
+                                width: 8rem;
+                                height: 8rem;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
