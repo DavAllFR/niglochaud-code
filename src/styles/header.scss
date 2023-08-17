@@ -1,0 +1,15 @@
+header{
+  display: flex;
+  width: 100%;
+
+  align-items: center;
+  justify-content: space-around;
+
+  menu {
+    display: flex;
+
+    li {
+      display: flex;
+    }
+  }
+}
